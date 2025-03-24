@@ -7,6 +7,9 @@ import org.sid.visiteurs_livraisions.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AdminService {
     @Autowired
@@ -19,5 +22,14 @@ public class AdminService {
         Admin admin = adminMapper.toEntity(adminDTO);
         admin = adminRepository.save(admin);
         return adminMapper.toDto(admin);
+    }
+
+    public List<AdminDTO> getList() {
+        List<Admin> admins = adminRepository.findAll();
+        List<AdminDTO> adminDTOs = new ArrayList<>();
+        for (Admin admin : admins) {
+            adminDTOs.add(adminMapper.toDto(admin));
+        }
+        return adminDTOs;
     }
 }
