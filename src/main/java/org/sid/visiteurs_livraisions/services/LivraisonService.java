@@ -7,17 +7,16 @@ import org.sid.visiteurs_livraisions.repositories.LivraisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LivraisonService {
-    @Autowired
-    private LivraisonRepository livraisonRepository;
+    @Autowired private LivraisonRepository repo;
+    @Autowired private LivraisonMapper mapper;
 
-    @Autowired
-    private LivraisonMapper livraisonMapper;
-
-    public LivraisonDTO createLivraison(LivraisonDTO livraisonDTO) {
-        Livraison livraison = livraisonMapper.toEntity(livraisonDTO);
-        livraison = livraisonRepository.save(livraison);
-        return livraisonMapper.toDto(livraison);
-    }
+    public LivraisonDTO create(LivraisonDTO dto) { return mapper.toDto(repo.save(mapper.toEntity(dto))); }
+    public List<LivraisonDTO> getAll() { return repo.findAll().stream().map(mapper::toDto).toList(); }
+    public LivraisonDTO get(Long id) { return mapper.toDto(repo.findById(id).orElseThrow()); }
+    public LivraisonDTO update(Long id, LivraisonDTO dto) { Livraison e = mapper.toEntity(dto); e.setId(id); return mapper.toDto(repo.save(e)); }
+    public void delete(Long id) { repo.deleteById(id); }
 }

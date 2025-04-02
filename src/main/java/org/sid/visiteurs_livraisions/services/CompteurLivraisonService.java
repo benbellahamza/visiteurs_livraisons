@@ -7,17 +7,16 @@ import org.sid.visiteurs_livraisions.repositories.CompteurLivraisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CompteurLivraisonService {
-    @Autowired
-    private CompteurLivraisonRepository compteurLivraisonRepository;
+    @Autowired private CompteurLivraisonRepository repo;
+    @Autowired private CompteurLivraisonMapper mapper;
 
-    @Autowired
-    private CompteurLivraisonMapper compteurLivraisonMapper;
-
-    public CompteurLivraisonDTO createCompteurLivraison(CompteurLivraisonDTO compteurLivraisonDTO) {
-        CompteurLivraison compteurLivraison = compteurLivraisonMapper.toEntity(compteurLivraisonDTO);
-        compteurLivraison = compteurLivraisonRepository.save(compteurLivraison);
-        return compteurLivraisonMapper.toDto(compteurLivraison);
-    }
+    public CompteurLivraisonDTO create(CompteurLivraisonDTO dto) { return mapper.toDto(repo.save(mapper.toEntity(dto))); }
+    public List<CompteurLivraisonDTO> getAll() { return repo.findAll().stream().map(mapper::toDto).toList(); }
+    public CompteurLivraisonDTO get(Long id) { return mapper.toDto(repo.findById(id).orElseThrow()); }
+    public CompteurLivraisonDTO update(Long id, CompteurLivraisonDTO dto) { CompteurLivraison e = mapper.toEntity(dto); e.setId(id); return mapper.toDto(repo.save(e)); }
+    public void delete(Long id) { repo.deleteById(id); }
 }

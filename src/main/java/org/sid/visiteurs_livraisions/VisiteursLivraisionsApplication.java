@@ -26,37 +26,32 @@ public class VisiteursLivraisionsApplication {
             VisiteurRepository visiteurRepo
     ) {
         return args -> {
-            // Create Admin
             Admin admin = new Admin();
             admin.setNom("Admin");
             admin.setPrenom("Principal");
             admin.setUsername("admin01");
-            admin.setPassword("securepass");
+            admin.setPassword("securepass"); // Mot de passe sans encodage
             adminRepo.save(admin);
 
-            // Create AgentDeSaisie
             AgentDeSaisie agent = new AgentDeSaisie();
             agent.setNom("Saisie");
             agent.setPrenom("Agent");
             agent.setUsername("agent01");
-            agent.setPassword("agentpass");
+            agent.setPassword("agentpass"); // Mot de passe sans encodage
             agent = agentRepo.save(agent);
 
-            // Create CompteurVisite
             CompteurVisite compteurVisite = new CompteurVisite();
             compteurVisite.setNombreVisites(10);
             compteurVisite.setDate(new Date());
             compteurVisite.setAgentDeSaisie(agent);
             compteurVisRepo.save(compteurVisite);
 
-            // Create CompteurLivraison
             CompteurLivraison compteurLivraison = new CompteurLivraison();
             compteurLivraison.setNombreLivraisons(5);
             compteurLivraison.setDate(new Date());
             compteurLivraison.setAgentDeSaisie(agent);
             compteurLivRepo.save(compteurLivraison);
 
-            // Create Livraison
             Livraison livraison = new Livraison();
             livraison.setNomChauffeur("Ahmed");
             livraison.setPrenomChauffeur("Youssef");
@@ -68,7 +63,6 @@ public class VisiteursLivraisionsApplication {
             livraison.setAgentDeSaisie(agent);
             livraisonRepo.save(livraison);
 
-            // Create Visiteur
             Visiteur visiteur = new Visiteur();
             visiteur.setNom("Ali");
             visiteur.setPrenom("Karim");
@@ -78,8 +72,7 @@ public class VisiteursLivraisionsApplication {
             visiteur.setAgentDeSaisie(agent);
             visiteurRepo.save(visiteur);
 
-            System.out.println("✅ Test data inserted successfully!");
+            System.out.println("✅ Données de test insérées avec succès !");
         };
     }
-
 }

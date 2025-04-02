@@ -4,7 +4,6 @@ import org.sid.visiteurs_livraisions.dtos.VisiteurDTO;
 import org.sid.visiteurs_livraisions.entities.Visiteur;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.sid.visiteurs_livraisions.dtos.VisiteurDTO;
 
 @Mapper(componentModel = "spring")
 public interface VisiteurMapper {
